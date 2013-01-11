@@ -1,10 +1,13 @@
 class UsersController < ApplicationController
-<<<<<<< HEAD
   def create
     @user = User.new(params[:user])
     if @user.save
-      # Handle a successful save.
-=======
+      sign_in @user
+      flash[:success] = "Welcome to the Sample App!"
+      redirect_to @user
+    else
+      render 'new'
+    end
 
   def show
     @user = User.find(params[:id])
@@ -20,9 +23,9 @@ class UsersController < ApplicationController
       sign_in @user
       flash[:success] = "Welcome to the Sample App!"
       redirect_to @user
->>>>>>> sign-in-out
     else
       render 'new'
     end
    end
+ end
 end
