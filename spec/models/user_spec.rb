@@ -32,7 +32,7 @@ require 'spec_helper'
     before { @user.save }
     its(:remember_token) { should_not be_blank }
   end
-  end
+end
 
  describe "when email is not present" do
     before { @user.email = " " }
@@ -119,5 +119,20 @@ end
       @user.email = mixed_case_email
       @user.save
       @user.reload.email.should == mixed_case_email.downcase
+    end
+  end
+
+  describe "signup" do
+
+    before { visit signup_path }
+ 
+    describe "with invalid information" do
+
+      describe "after submission" do
+        before { click_button submit }
+
+        it { should have_selector('title', text: 'Sign up') }
+        it { should have_content('error') }
+      end
     end
   end
